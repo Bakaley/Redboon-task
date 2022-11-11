@@ -48,15 +48,29 @@ namespace Merchant.UI
         {
             _currentItem = null;
         }
+
+        public void Init(InventoryTable parentTable)
+        {
+            _tableParent = parentTable;
+        }
         
         private void Awake()
         {
             _cellImage = GetComponent<Image>();
         }
 
-        public void Init(InventoryTable parentTable)
+        private InventoryCell GetCellUnderMouse()
         {
-            _tableParent = parentTable;
+            _pointerEventData.position = Input.mousePosition;
+            EventSystem.current.RaycastAll(_pointerEventData, _raycastResults);
+            foreach (var result in _raycastResults)
+            {
+                if (result.gameObject.TryGetComponent(out InventoryCell cell))
+                {
+                    return cell;
+                }
+            }
+            return null;
         }
         
         public void OnPointerEnter(PointerEventData eventData)
@@ -88,21 +102,7 @@ namespace Merchant.UI
         {
             if(_currentItem) _currentItem.OnDrag();
         }
-
-        private InventoryCell GetCellUnderMouse()
-        {
-            _pointerEventData.position = Input.mousePosition;
-            EventSystem.current.RaycastAll(_pointerEventData, _raycastResults);
-            foreach (var result in _raycastResults)
-            {
-                if (result.gameObject.TryGetComponent(out InventoryCell cell))
-                {
-                    return cell;
-                }
-            }
-            return null;
-        }
-
+        
         public void OnEndDrag(PointerEventData eventData)
         {
             if (_currentItem)

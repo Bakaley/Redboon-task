@@ -1,8 +1,8 @@
+using Merchant.ScriptableObjects;
 using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
 
-namespace Merchant
+namespace Merchant.MonoInstallers
 {
     public class InventoryInstaller : MonoInstaller
     {

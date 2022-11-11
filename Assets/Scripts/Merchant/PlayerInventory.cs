@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Merchant;
 using Merchant.ScriptableObjects;
+using Merchant.UI;
 using UnityEngine;
 
 public class PlayerInventory
@@ -14,10 +15,10 @@ public class PlayerInventory
 
     public PlayerInventory(StartInventorySO startInventory)
     {
-        _coinsAmount = startInventory.startPlayerCash;
+        _coinsAmount = startInventory.StartPlayerCash;
         
         //we are creating a copy so changes in this list will not affect scriptable object
-        _items = new List<InventoryItemSO>(startInventory.startPlayerInventoryList);
+        _items = new List<InventoryItemSO>(startInventory._startPlayerInventoryList);
     }
 
     public int CoinsAmount => _coinsAmount;

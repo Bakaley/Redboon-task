@@ -8,7 +8,11 @@ namespace Merchant.ScriptableObjects
     [InlineEditor]
     public class MerchantSO : ScriptableObject
     {
-        [Range(0, 1)] public float sellingPriceModifier = 0.5f;
-        public List<InventoryItemSO> listForTrading;
+        [Range(0, 1)] [SerializeField] private float _sellingPriceModifier = 0.5f;
+        [SerializeField] private List<InventoryItemSO> _listForTrading;
+
+        public float SellingPriceModifier => _sellingPriceModifier;
+        public List<InventoryItemSO> ListForTrading => _listForTrading;
+
     }
 }

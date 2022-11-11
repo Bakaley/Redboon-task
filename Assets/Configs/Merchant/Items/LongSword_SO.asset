@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: LongSword_SO
   m_EditorClassIdentifier: 
-  id: longsword
-  title: "\u0414\u043B\u0438\u043D\u043D\u044B\u0439 \u043C\u0435\u0447"
-  icon: {fileID: 21300000, guid: 6d2e52a82716cc549b1fc077c815090f, type: 3}
-  price: 125
+  _id: longsword
+  _title: "\u0414\u043B\u0438\u043D\u043D\u044B\u0439 \u043C\u0435\u0447"
+  _icon: {fileID: 21300000, guid: 6d2e52a82716cc549b1fc077c815090f, type: 3}
+  _price: 450

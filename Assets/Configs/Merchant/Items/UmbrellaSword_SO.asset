@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: UmbrellaSword_SO
   m_EditorClassIdentifier: 
-  id: umbrella_sword
-  title: "\u041C\u0435\u0447-\u0437\u043E\u043D\u0442"
-  icon: {fileID: 21300000, guid: f2fde02af4bd2274181663bc0af4fd12, type: 3}
-  price: 900
+  _id: umbrella_sword
+  _title: "\u041C\u0435\u0447-\u0437\u043E\u043D\u0442"
+  _icon: {fileID: 21300000, guid: f2fde02af4bd2274181663bc0af4fd12, type: 3}
+  _price: 900

@@ -1,11 +1,8 @@
-using System;
 using Merchant.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Zenject;
 
-namespace Merchant
+namespace Merchant.UI
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(RectTransform))]
@@ -30,7 +27,7 @@ namespace Merchant
         public void Init(InventoryItemSO config)
         {
             _config = config;
-            _icon.sprite = config.icon;
+            _icon.sprite = config.Icon;
         }
 
         public void BeginDrag()

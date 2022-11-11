@@ -1,16 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Merchant.ScriptableObjects;
-using Merchant.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Zenject;
 
-namespace Merchant
+namespace Merchant.UI
 {
     /* I am not sure in this solution, but i had several problems needed to be solved:
      Images draw themselves in order on their scene hierarchy, so items need their own canvas with overrided sorting order.

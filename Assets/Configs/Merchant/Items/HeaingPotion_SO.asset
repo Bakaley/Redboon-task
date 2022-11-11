@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: HeaingPotion_SO
   m_EditorClassIdentifier: 
-  id: healing_potion
-  title: "\u0417\u0435\u043B\u044C\u0435 \u043B\u0435\u0447\u0435\u043D\u0438\u044F"
-  icon: {fileID: 21300000, guid: 9c16b7f03c8e78448a95779f90179db9, type: 3}
-  price: 50
+  _id: healing_potion
+  _title: "\u0417\u0435\u043B\u044C\u0435 \u043B\u0435\u0447\u0435\u043D\u0438\u044F"
+  _icon: {fileID: 21300000, guid: 91cabfc6ee709e143a43ffe978e3781b, type: 3}
+  _price: 50

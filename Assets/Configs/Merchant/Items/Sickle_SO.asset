@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: Sickle_SO
   m_EditorClassIdentifier: 
-  id: sickle
-  title: "\u0421\u0435\u0440\u043F"
-  icon: {fileID: 21300000, guid: 08b69823480cf4e46a47094f212f45e2, type: 3}
-  price: 250
+  _id: sickle
+  _title: "\u0421\u0435\u0440\u043F"
+  _icon: {fileID: 21300000, guid: 08b69823480cf4e46a47094f212f45e2, type: 3}
+  _price: 50

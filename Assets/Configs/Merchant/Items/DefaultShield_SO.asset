@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: DefaultShield_SO
   m_EditorClassIdentifier: 
-  id: default_shield
-  title: "\u0429\u0438\u0442"
-  icon: {fileID: 21300000, guid: a10ed69771f61624380d5e85fd341bcb, type: 3}
-  price: 50
+  _id: default_shield
+  _title: "\u0429\u0438\u0442"
+  _icon: {fileID: 21300000, guid: a10ed69771f61624380d5e85fd341bcb, type: 3}
+  _price: 100

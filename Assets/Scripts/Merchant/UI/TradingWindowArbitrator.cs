@@ -16,8 +16,8 @@ namespace Merchant.UI
         [SerializeField] private MerchantSO _merchantConfig;
         [SerializeField] private InfoPanel _infoPanel;
         
-        private int GetSellingPriceOfItem(InventoryItemSO item) => (int) (item.price * _merchantConfig.sellingPriceModifier);
-        private bool AbleToBuyItem(InventoryItemSO item) => _playerInventory.CoinsAmount >= item.price;
+        private int GetSellingPriceOfItem(InventoryItemSO item) => (int) (item.Price * _merchantConfig.SellingPriceModifier);
+        private bool AbleToBuyItem(InventoryItemSO item) => _playerInventory.CoinsAmount >= item.Price;
         
         private async void Start()
         {
@@ -29,7 +29,7 @@ namespace Merchant.UI
                 cell.OnItemDragged += OnPlayerItemDraggedHandler;
             }
             
-            await _merchantInventoryTable.Init(_merchantConfig.listForTrading);
+            await _merchantInventoryTable.Init(_merchantConfig.ListForTrading);
             foreach (var cell in _merchantInventoryTable.Cells)
             {
                 cell.OnPointerEnterCell += OnMerchantCellPointerEnterHandler;
@@ -57,7 +57,7 @@ namespace Merchant.UI
             {
                 //in real game merchant will be also have their own "inventory", but for now its view only
                 _merchantInventoryTable.RemoveItemFromTable(item);
-                _playerInventory.ChangeCoinsCountOn(- item.Config.price);
+                _playerInventory.ChangeCoinsCountOn(- item.Config.Price);
                 
                 //in real game table would be subscribed on player inventory
                 //so there would be no need to add item to model AND to view
@@ -78,8 +78,8 @@ namespace Merchant.UI
         private void OnMerchantCellPointerEnterHandler(InventoryCell cell)
         {
             if(cell.Item != null)
-                _infoPanel.SetItemInfo(cell.Item.Config, cell.Item.Config.price, InfoPanel.InfoType.Buying,
-                    _playerInventory.CoinsAmount < cell.Item.Config.price);
+                _infoPanel.SetItemInfo(cell.Item.Config, cell.Item.Config.Price, InfoPanel.InfoType.Buying,
+                    _playerInventory.CoinsAmount < cell.Item.Config.Price);
             else _infoPanel.SetDefaultText();
         }
 

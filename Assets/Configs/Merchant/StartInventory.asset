@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e598a914479f42c429b12b7725fc1f63, type: 3}
   m_Name: StartInventory
   m_EditorClassIdentifier: 
-  startPlayerCash: 500
-  startPlayerInventoryList:
+  _startPlayerCash: 1000
+  _startPlayerInventoryList:
+  - {fileID: 11400000, guid: c4c71672f6fcc34408578ca662978e28, type: 2}
   - {fileID: 11400000, guid: c4c71672f6fcc34408578ca662978e28, type: 2}
   - {fileID: 11400000, guid: d06fc066e34e475418586e79ea667a5b, type: 2}
-  - {fileID: 11400000, guid: 6dd00ef3d0b04a743a112a7eceddc0ff, type: 2}
-  - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}
-  - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}
-  - {fileID: 11400000, guid: 57c74d7564f70da4aa137cd90e482a10, type: 2}
-  - {fileID: 11400000, guid: 57c74d7564f70da4aa137cd90e482a10, type: 2}
   - {fileID: 11400000, guid: 4ad4b02b991f75c4abb211800829c255, type: 2}
+  - {fileID: 11400000, guid: 6dd00ef3d0b04a743a112a7eceddc0ff, type: 2}
+  - {fileID: 11400000, guid: fd95934e6c93ed648af3230ea6e44863, type: 2}
+  - {fileID: 11400000, guid: c6f1804ea312b8f489596b7d475ce83d, type: 2}
+  - {fileID: 11400000, guid: bd91ecccbbbcb86408e1259ff15eeffa, type: 2}
+  - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}
+  - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}

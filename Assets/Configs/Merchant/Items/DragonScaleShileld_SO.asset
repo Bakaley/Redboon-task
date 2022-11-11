@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: DragonScaleShileld_SO
   m_EditorClassIdentifier: 
-  id: dragonscale_shield
-  title: "\u0429\u0438\u0442 \u0438\u0437 \u0434\u0440\u0430\u043A\u043E\u043D\u044C\u0435\u0439
+  _id: dragonscale_shield
+  _title: "\u0429\u0438\u0442 \u0438\u0437 \u0434\u0440\u0430\u043A\u043E\u043D\u044C\u0435\u0439
     \u0447\u0435\u0448\u0443\u0438"
-  icon: {fileID: 21300000, guid: 71b8b0966e369254496cfe5d214f3164, type: 3}
-  price: 250
+  _icon: {fileID: 21300000, guid: 71b8b0966e369254496cfe5d214f3164, type: 3}
+  _price: 250

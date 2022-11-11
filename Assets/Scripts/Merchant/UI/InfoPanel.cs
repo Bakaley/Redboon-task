@@ -33,31 +33,21 @@ namespace Merchant.UI
 
         public void SetItemInfo(InventoryItemSO item, int price, InfoType type, bool makePriceRed = false)
         {
-            string newValue = item.title;
-            newValue += _indent;
+            string newValue = item.Title + _indent;
             switch (type)
             {
                 case InfoType.Buying:
                     if (makePriceRed)
                     {
-                        newValue += _redColorTag;
-                        newValue += _buyingString;
-                        newValue += price;
-                        newValue += _coinSymbol;
-                        newValue += _redColorCloseTag;
+                        newValue += _redColorTag + _buyingString + price + _coinSymbol + _redColorCloseTag;
                     }
                     else
                     {
-                        newValue += _buyingString;
-                        newValue += price;
-                        newValue += _coinSymbol;
+                        newValue += _buyingString + price + _coinSymbol;
                     }
                     break;
-                
                 case InfoType.Selling:
-                    newValue += _sellingString;
-                    newValue += price;
-                    newValue += _coinSymbol;
+                    newValue += _sellingString + price + _coinSymbol;
                     break;
             }
             _text.text = newValue;

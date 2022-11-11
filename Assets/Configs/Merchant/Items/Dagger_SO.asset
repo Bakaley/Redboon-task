@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: Dagger_SO
   m_EditorClassIdentifier: 
-  id: dagger
-  title: "\u041A\u0438\u043D\u0436\u0430\u043B"
-  icon: {fileID: 21300000, guid: fb2075d04c8703042a5d7cf246912532, type: 3}
-  price: 90
+  _id: dagger
+  _title: "\u041A\u0438\u043D\u0436\u0430\u043B"
+  _icon: {fileID: 21300000, guid: fb2075d04c8703042a5d7cf246912532, type: 3}
+  _price: 90

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e96a4d14ac43f449f6770434c42426, type: 3}
   m_Name: FearFlask_SO
   m_EditorClassIdentifier: 
-  id: fear_flask
-  title: "\u0421\u043A\u043B\u044F\u043D\u043A\u0430 \u0443\u0436\u0430\u0441\u0430"
-  icon: {fileID: 21300000, guid: 91137e7bb2263694e9503f4f7070f69e, type: 3}
-  price: 250
+  _id: fear_flask
+  _title: "\u0421\u043A\u043B\u044F\u043D\u043A\u0430 \u0443\u0436\u0430\u0441\u0430"
+  _icon: {fileID: 21300000, guid: 91137e7bb2263694e9503f4f7070f69e, type: 3}
+  _price: 150

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296983672d85b9c4a98fef10b7ea1ce5, type: 3}
   m_Name: MerchantSO
   m_EditorClassIdentifier: 
-  sellingPriceModifier: 0.5
-  listForTrading:
+  _sellingPriceModifier: 0.5
+  _listForTrading:
   - {fileID: 11400000, guid: c4c71672f6fcc34408578ca662978e28, type: 2}
   - {fileID: 11400000, guid: c6f1804ea312b8f489596b7d475ce83d, type: 2}
   - {fileID: 11400000, guid: fd95934e6c93ed648af3230ea6e44863, type: 2}
@@ -30,6 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6dd00ef3d0b04a743a112a7eceddc0ff, type: 2}
   - {fileID: 11400000, guid: 8ae6d2e371a53214e8d78deace2cc0b2, type: 2}
   - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}
-  - {fileID: 11400000, guid: 3a14978e92675684889ce92417ae9990, type: 2}
-  - {fileID: 11400000, guid: 3a14978e92675684889ce92417ae9990, type: 2}
   - {fileID: 11400000, guid: 80700a37994716949a46648f48003f5d, type: 2}
+  - {fileID: 11400000, guid: eaff71013a2834c47a80c4fdd08a28f0, type: 2}

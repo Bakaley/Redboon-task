@@ -1,32 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class CoinsWidget : MonoBehaviour
+namespace Merchant.UI
 {
-    [Inject] private PlayerInventory _playerInventory;
-    [SerializeField] private TextMeshProUGUI _counter;
-
-    private void Start()
+    public class CoinsWidget : MonoBehaviour
     {
-        RefreshCoinsCounter(_playerInventory.CoinsAmount);
-    }
+        [Inject] private PlayerInventory _playerInventory;
+        [SerializeField] private TextMeshProUGUI _counter;
 
-    private void OnEnable()
-    {
-        _playerInventory.CoinsAmountChanged += RefreshCoinsCounter;
-    }
+        private void Start()
+        {
+            RefreshCoinsCounter(_playerInventory.CoinsAmount);
+        }
 
-    private void RefreshCoinsCounter(int newAmount)
-    {
-        _counter.text = newAmount + "$";
-    }
+        private void OnEnable()
+        {
+            _playerInventory.CoinsAmountChanged += RefreshCoinsCounter;
+        }
 
-    private void OnDisable()
-    {
-        _playerInventory.CoinsAmountChanged -= RefreshCoinsCounter;
+        private void RefreshCoinsCounter(int newAmount)
+        {
+            _counter.text = newAmount + "$";
+        }
+
+        private void OnDisable()
+        {
+            _playerInventory.CoinsAmountChanged -= RefreshCoinsCounter;
+        }
     }
 }

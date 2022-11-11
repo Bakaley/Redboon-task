@@ -7,9 +7,14 @@ namespace Merchant.ScriptableObjects
     [InlineEditor]
     public class InventoryItemSO : ScriptableObject
     {
-        public string id;
-        public string title;
-        public Sprite icon;
-        public int price;
+        [SerializeField] public string _id;
+        [SerializeField] public string _title;
+        [SerializeField] public Sprite _icon;
+        [SerializeField] public int _price;
+
+        public string ID => _id;
+        public string Title => _title;
+        public Sprite Icon => _icon;
+        public int Price => _price;
     }
 }
