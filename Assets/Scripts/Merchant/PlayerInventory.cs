@@ -18,7 +18,7 @@ public class PlayerInventory
         _coinsAmount = startInventory.StartPlayerCash;
         
         //we are creating a copy so changes in this list will not affect scriptable object
-        _items = new List<InventoryItemSO>(startInventory._startPlayerInventoryList);
+        _items = new List<InventoryItemSO>(startInventory.StartPlayerInventoryList);
     }
 
     public int CoinsAmount => _coinsAmount;

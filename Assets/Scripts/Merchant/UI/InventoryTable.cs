@@ -10,18 +10,18 @@ namespace Merchant.UI
 {
     /* I am not sure in this solution, but i had several problems needed to be solved:
      Images draw themselves in order on their scene hierarchy, so items need their own canvas with overrided sorting order.
-     We could add to each item its own canvas, but, as i know, 100+ canvases in each frame is not very healthy for performance.
+     I could add to each item its own canvas, but, as i know, 100+ canvases in each frame is not very healthy for performance,
+     especially for mobile platforms.
      So i decided to add one parent canvas for all items on grid, maybe that was a mistake
           
      I wish i know a better way to solve the sorting order problem, but for now, i don't know such
      */
     
-    public class InventoryTable : MonoBehaviour
+    public abstract class InventoryTable : MonoBehaviour
     {
         private readonly int _cellsCount = 40;
         [SerializeField] private GridLayoutGroup _grid;
         [SerializeField] private InventoryCell _cellSampler;
-        
         [SerializeField] private InventoryItem _itemSampler;
 
         // Items need their own canvas with overrided sorting layer number so that items are drawn regardless of scene hierarchy.
@@ -31,16 +31,14 @@ namespace Merchant.UI
         // Only after that we can snap items to cells' transform positions without parenting them
         private bool _cellsInited = false;
 
-        public List<InventoryCell> Cells { get; private set; }
-        public List<InventoryItem> Items { get; private set; }  = new List<InventoryItem>();
+        protected ItemWindowArbitrator Arbitrator { get; private set; }
+        protected List<InventoryCell> Cells { get; private set; }
+        protected List<InventoryItem> Items { get; private set; }  = new List<InventoryItem>();
+        protected abstract List<InventoryItemSO> ListToFill { get; }
 
-        public async Task Init(List<InventoryItemSO> itemList)
+        public void Init(ItemWindowArbitrator arbitrator)
         {
-            while (!_cellsInited)
-            {
-                await Task.Yield();
-            }
-            FillWithItems(itemList);
+            Arbitrator = arbitrator;
         }
         
         public void AddItemToTable(InventoryItem item, InventoryCell cell = null)
@@ -57,7 +55,33 @@ namespace Merchant.UI
             Items.Remove(item);
         }
 
-        public void MoveItem(InventoryCell oldCell, InventoryCell newCell)
+        protected abstract void OnCellPointerEnterHandler(InventoryCell cell, InventoryItem item);
+        protected abstract void OnItemClickHandler(InventoryCell cell, InventoryItem item);
+        protected abstract void OnItemDraggedHandler(InventoryCell oldCell, InventoryCell newCell, InventoryItem item);
+
+        protected virtual void Awake()
+        {
+            StartCoroutine(FillWithCells(_cellSampler, _cellsCount));
+        }
+        
+        protected virtual async void Start()
+        {
+            while (!_cellsInited)
+            { 
+                await Task.Yield();
+            }
+            
+            FillWithItems(ListToFill);
+            
+            foreach (var cell in Cells)
+            {
+                cell.OnPointerEnterCell += OnCellPointerEnterHandler;
+                cell.OnItemClick += OnItemClickHandler;
+                cell.OnItemDragged += OnItemDraggedHandler;
+            }
+        }
+        
+        protected void MoveItem(InventoryCell oldCell, InventoryCell newCell)
         {
             var item = oldCell.Item;
             if (newCell.IsEmpty)
@@ -72,11 +96,6 @@ namespace Merchant.UI
                 oldCell.BindItem(newCell.Item);
                 newCell.BindItem(item);
             }
-        }
-
-        private void Awake()
-        {
-            StartCoroutine(FillWithCells(_cellSampler, _cellsCount));
         }
 
         private IEnumerator FillWithCells(InventoryCell sampler, int cellsCount)

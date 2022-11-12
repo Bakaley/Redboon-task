@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1441477358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161efddf86a23e14f94a20964dee3639, type: 3}
+  m_Script: {fileID: 11500000, guid: 79adca5b2dd01e346b833b5722c17e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _grid: {fileID: 1664135734}
@@ -2552,9 +2552,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1655860473}
+  - component: {fileID: 1655860474}
   - component: {fileID: 1655860476}
   - component: {fileID: 1655860475}
-  - component: {fileID: 1655860474}
   m_Layer: 5
   m_Name: MerchantInventoryTable
   m_TagString: Untagged
@@ -2593,13 +2593,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1655860472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161efddf86a23e14f94a20964dee3639, type: 3}
+  m_Script: {fileID: 11500000, guid: 80f32b5785ea80e4f987dcefc28c4211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _grid: {fileID: 1592311770}
   _cellSampler: {fileID: 3429979564717399966, guid: c213afbc0a1e975429e0c0f5d0108636, type: 3}
   _itemSampler: {fileID: 5393988160472706530, guid: 8618f36f3da4c024eb7e2622fbde8cac, type: 3}
   _itemCanvas: {fileID: 460214690}
+  _merchantConfig: {fileID: 11400000, guid: 4bcb9009895eb074ca568757fa2e3260, type: 2}
 --- !u!114 &1655860475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,7 +2964,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInventoryTable: {fileID: 1441477362}
   _merchantInventoryTable: {fileID: 1655860474}
-  _merchantConfig: {fileID: 11400000, guid: 4bcb9009895eb074ca568757fa2e3260, type: 2}
   _infoPanel: {fileID: 574272452}
 --- !u!1 &1861864007
 GameObject:

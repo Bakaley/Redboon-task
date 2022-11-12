@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Merchant.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Sirenix.OdinInspector;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
 
 namespace Merchant.UI
 {
@@ -29,19 +25,19 @@ namespace Merchant.UI
         public InventoryItem Item => _currentItem;
         public InventoryTable Table => _tableParent;
         
-        public event Action<InventoryCell> OnPointerEnterCell;
+        public event Action<InventoryCell, InventoryItem> OnPointerEnterCell;
         public event Action<InventoryCell, InventoryItem> OnItemClick;
         public event Action<InventoryCell, InventoryCell, InventoryItem> OnItemDragged;
 
         public void CancelDragging()
         {
-            _currentItem.transform.position = this.transform.position;
+            SnapItem();
         }
         
         public void BindItem(InventoryItem item)
         {
             _currentItem = item;
-            item.transform.position = this.transform.position;
+            SnapItem();
         }
 
         public void UnbindItem()
@@ -76,7 +72,7 @@ namespace Merchant.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             _cellImage.sprite = _pointerHighlightSprite;
-            OnPointerEnterCell?.Invoke(this);
+            OnPointerEnterCell?.Invoke(this, Item);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -119,6 +115,11 @@ namespace Merchant.UI
                     CancelDragging();
                 }
             }
+        }
+
+        private void SnapItem()
+        {
+            _currentItem.transform.position = this.transform.position;
         }
     }
 }

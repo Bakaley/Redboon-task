@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Text;
 using Merchant.ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -17,11 +15,9 @@ namespace Merchant.UI
         private readonly string _redColorTag = "<color=\"red\">";
         private readonly string _redColorCloseTag = "</color>";
         private readonly string _coinSymbol = "$";
-
         
         public enum InfoType
         {
-            DefaultText,
             Selling,
             Buying
         }

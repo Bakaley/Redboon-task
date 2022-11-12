@@ -1,41 +1,66 @@
-using System;
-using System.Threading.Tasks;
 using Merchant.ScriptableObjects;
 using UnityEngine;
 using Zenject;
 
 namespace Merchant.UI
 {
-    /*This class handles all mouse events (click, drag, etc) in player and merchant windows */
-    public class TradingWindowArbitrator : MonoBehaviour
+      /* This class handles all mouse events (click, drag, etc) in player and merchant windows
+      * that requires access to other windows and tables */
+      
+      public class TradingWindowArbitrator : ItemWindowArbitrator
     {
         [Inject] private PlayerInventory _playerInventory;
-        
-        [SerializeField] private InventoryTable _playerInventoryTable;
-        [SerializeField] private InventoryTable _merchantInventoryTable;
-        [SerializeField] private MerchantSO _merchantConfig;
+
+        [SerializeField] private PlayerInventoryTable _playerInventoryTable;
+        [SerializeField] private MerchantInventoryTable _merchantInventoryTable;
         [SerializeField] private InfoPanel _infoPanel;
-        
-        private int GetSellingPriceOfItem(InventoryItemSO item) => (int) (item.Price * _merchantConfig.SellingPriceModifier);
         private bool AbleToBuyItem(InventoryItemSO item) => _playerInventory.CoinsAmount >= item.Price;
-        
-        private async void Start()
+
+        public override bool AttemptToMoveInAnotherWindow(InventoryTable oldTable, InventoryTable newTable,
+            InventoryItem item, InventoryCell cellInNewWindow = null)
         {
-            await _playerInventoryTable.Init(_playerInventory.InventoryItems);
-            foreach (var cell in _playerInventoryTable.Cells)
+            if (oldTable == _playerInventoryTable && newTable == _merchantInventoryTable)
             {
-                cell.OnPointerEnterCell += OnPlayerCellPointerEnterHandler;
-                cell.OnItemClick += OnPlayerItemClickHandler;
-                cell.OnItemDragged += OnPlayerItemDraggedHandler;
+                SellItem(item);
+                return true;
             }
-            
-            await _merchantInventoryTable.Init(_merchantConfig.ListForTrading);
-            foreach (var cell in _merchantInventoryTable.Cells)
+            else if (oldTable == _merchantInventoryTable && newTable == _playerInventoryTable)
             {
-                cell.OnPointerEnterCell += OnMerchantCellPointerEnterHandler;
-                cell.OnItemClick += OnMerchantItemClickHandler;
-                cell.OnItemDragged += OnMerchantItemDraggedHandler;
+                return AttemptBuyItem(item, cellInNewWindow);
             }
+            return false;
+        }
+
+
+        public override void OnPointerEntersCell(InventoryTable table, InventoryCell cell)
+        {
+            if (table == _playerInventoryTable)
+            {
+                if(cell.Item != null)
+                    _infoPanel.SetItemInfo(cell.Item.Config, _merchantInventoryTable.GetSellingPriceOfItem(cell.Item.Config),
+                        InfoPanel.InfoType.Selling);
+                else _infoPanel.SetDefaultText();
+            }
+            else if (table == _merchantInventoryTable)
+            {
+                if(cell.Item != null)
+                    _infoPanel.SetItemInfo(cell.Item.Config, cell.Item.Config.Price, InfoPanel.InfoType.Buying,
+                        _playerInventory.CoinsAmount < cell.Item.Config.Price);
+                else _infoPanel.SetDefaultText();
+            }
+        }
+
+        public override void OnPointerItemClick(InventoryTable table, InventoryItem item)
+        {
+            if(table == _playerInventoryTable) SellItem(item);
+            else if (table == _merchantInventoryTable) AttemptBuyItem(item);
+
+        }
+
+        private void Start()
+        {
+            _playerInventoryTable.Init(this);
+            _merchantInventoryTable.Init(this);
         }
 
         private void SellItem(InventoryItem item)
@@ -45,13 +70,13 @@ namespace Merchant.UI
             _playerInventory.RemoveItem(item);
             _playerInventoryTable.RemoveItemFromTable(item);
             
-            _playerInventory.ChangeCoinsCountOn(GetSellingPriceOfItem(item.Config));
+            _playerInventory.ChangeCoinsCountOn(_merchantInventoryTable.GetSellingPriceOfItem(item.Config));
             
             //in real game merchant will be also have their own "inventory", but for now its view only
             _merchantInventoryTable.AddItemToTable(item);
         }
 
-        private bool TryBuyItem(InventoryItem item, InventoryCell cell = null)
+        private bool AttemptBuyItem(InventoryItem item, InventoryCell cell = null)
         {
             if (AbleToBuyItem(item.Config))
             {
@@ -66,64 +91,6 @@ namespace Merchant.UI
                 return true;
             }
             return false;
-        }
-
-        private void OnPlayerCellPointerEnterHandler(InventoryCell cell)
-        {
-            if(cell.Item != null)
-                _infoPanel.SetItemInfo(cell.Item.Config, GetSellingPriceOfItem(cell.Item.Config), InfoPanel.InfoType.Selling);
-            else _infoPanel.SetDefaultText();
-        }
-
-        private void OnMerchantCellPointerEnterHandler(InventoryCell cell)
-        {
-            if(cell.Item != null)
-                _infoPanel.SetItemInfo(cell.Item.Config, cell.Item.Config.Price, InfoPanel.InfoType.Buying,
-                    _playerInventory.CoinsAmount < cell.Item.Config.Price);
-            else _infoPanel.SetDefaultText();
-        }
-
-        private void OnPlayerItemClickHandler(InventoryCell cell, InventoryItem item)
-        {
-            SellItem(item);
-        }
-        
-        private void OnMerchantItemClickHandler(InventoryCell cell, InventoryItem item)
-        {
-            TryBuyItem(item);
-        }
-
-        private void OnPlayerItemDraggedHandler(InventoryCell oldCell, InventoryCell newCell, InventoryItem item)
-        {
-            if (newCell.Table == _merchantInventoryTable)
-            {
-                //item was dragged to merchant table, selling it
-                SellItem(item);
-            }
-            else
-            {
-                //dragging item in the same table in new cell
-                _playerInventoryTable.MoveItem(oldCell, newCell);
-            }
-        }
-        
-        private void OnMerchantItemDraggedHandler(InventoryCell oldCell, InventoryCell newCell, InventoryItem item)
-        {
-            if (newCell.Table == _playerInventoryTable)
-            {
-                //item was dragged to player table, trying to buy it
-                var result = TryBuyItem(item, newCell);
-                if(!result)
-                {
-                    //player had not enough coins, putting item back
-                    oldCell.CancelDragging();
-                }
-            }
-            else
-            {
-                //dragging items inside merchant's inventory is not allowed (like in Witcher 3)
-                oldCell.CancelDragging();
-            }
         }
     }
 }

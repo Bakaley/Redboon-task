@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Merchant.ScriptableObjects
 {
@@ -10,7 +9,7 @@ namespace Merchant.ScriptableObjects
     public class StartInventorySO : ScriptableObject
     {
         [SerializeField] private int _startPlayerCash = 1000;
-        [SerializeField] public List<InventoryItemSO> _startPlayerInventoryList;
+        [SerializeField] private List<InventoryItemSO> _startPlayerInventoryList;
 
         public int StartPlayerCash => _startPlayerCash;
         public List<InventoryItemSO> StartPlayerInventoryList => _startPlayerInventoryList;

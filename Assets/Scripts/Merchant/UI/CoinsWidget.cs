@@ -9,6 +9,8 @@ namespace Merchant.UI
         [Inject] private PlayerInventory _playerInventory;
         [SerializeField] private TextMeshProUGUI _counter;
 
+        private readonly string _coinSymbol = "$";
+
         private void Start()
         {
             RefreshCoinsCounter(_playerInventory.CoinsAmount);
@@ -21,7 +23,7 @@ namespace Merchant.UI
 
         private void RefreshCoinsCounter(int newAmount)
         {
-            _counter.text = newAmount + "$";
+            _counter.text = newAmount + _coinSymbol;
         }
 
         private void OnDisable()

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 namespace Merchant.UI
 {
     [RequireComponent(typeof(Image))]
-    [RequireComponent(typeof(RectTransform))]
     public class InventoryItem : MonoBehaviour
     {
         [SerializeField] private Color _draggingColor;
@@ -13,13 +12,11 @@ namespace Merchant.UI
         
         private InventoryItemSO _config;
         private Image _icon;
-        private RectTransform _transform;
 
         public InventoryItemSO Config => _config;
         
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>();
             _icon = GetComponent<Image>();
             _icon.color = _defaultColor;
         }
