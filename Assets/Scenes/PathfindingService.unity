@@ -183,8 +183,8 @@ LineRenderer:
   m_SortingOrder: 2
   m_Positions:
   - {x: 2, y: -2, z: 0}
-  - {x: 2, y: 4, z: 0}
-  - {x: 6, y: 4, z: 0}
+  - {x: 2, y: 4.57, z: 0}
+  - {x: 6, y: 4.57, z: 0}
   - {x: 6, y: -2, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -694,11 +694,8 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Positions:
-  - {x: -2.15, y: 3.04, z: 0}
-  - {x: 1.2697988, y: 1.3857718, z: 0}
-  - {x: 3.7, y: 3.43, z: 0}
+  m_SortingOrder: 7
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -707,7 +704,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.18300629
+        value: 0.80391693
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -960,9 +957,9 @@ MonoBehaviour:
   _rect1Min: {x: -3, y: -1.52}
   _rect1Max: {x: 0, y: 3.6}
   _rect2Min: {x: 0, y: -2}
-  _rect2Max: {x: 2, y: 2}
+  _rect2Max: {x: 2, y: 1.96}
   _rect3Min: {x: 2, y: -2}
-  _rect3Max: {x: 6, y: 4}
+  _rect3Max: {x: 6, y: 4.57}
   _dotAPostion: {x: -2.15, y: 3.04}
   _dotCPostion: {x: 3.7, y: 3.43}
 --- !u!4 &1376521736
@@ -1155,8 +1152,8 @@ LineRenderer:
   m_SortingOrder: 2
   m_Positions:
   - {x: 0, y: -2, z: 0}
-  - {x: 0, y: 2, z: 0}
-  - {x: 2, y: 2, z: 0}
+  - {x: 0, y: 1.96, z: 0}
+  - {x: 2, y: 1.96, z: 0}
   - {x: 2, y: -2, z: 0}
   m_Parameters:
     serializedVersion: 3

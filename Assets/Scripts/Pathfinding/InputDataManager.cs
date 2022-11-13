@@ -14,11 +14,9 @@ namespace Pathfinding
         [SerializeField] private RectangleDrawer _rect2;
         [SerializeField] private RectangleDrawer _rect3;
         [SerializeField] private Dot _dotA;
-        [SerializeField] private Dot _dotSampler;
         [SerializeField] private Dot _dotC;
         [SerializeField] private EdgeDetector _edgeDetector;
         [SerializeField] private LineRenderer _pathDrawer;
-        [Range(0, 0.25f)] [SerializeField] private float _angleThreshold = 0.125f;
         [SerializeField] private Pathfinder _pathfinder;
 
         private List<Rectangle> _rectangles = new List<Rectangle>();
@@ -150,6 +148,7 @@ namespace Pathfinding
                 for (int i = 0; i < dots.Length; i++)
                 {
                     dots[i] = new Vector3(resultsArray[i].x, resultsArray[i].y, 0);
+                    Debug.Log("Dot [" + i + "] is " + dots[i]);
                 }
                 _pathDrawer.positionCount = dots.Length;
                 _pathDrawer.SetPositions(dots);

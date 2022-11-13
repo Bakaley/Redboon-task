@@ -13,15 +13,15 @@ namespace Pathfinding
         private IEnumerable<Edge> _edges;
 
 
-        private List<Vector2> _startDotAngles = new List<Vector2>();
-        private List<Vector2> _endDotAngles = new List<Vector2>();
+        private readonly List<Vector2> _anglesInStartFieldOfView = new List<Vector2>();
+        private readonly List<Vector2> _anglesInEndFieldOfView = new List<Vector2>();
         
-        private List<AngleRay> _startPointAngleRays = new List<AngleRay>();
-        private List<AngleRay> _endPointAngleRays = new List<AngleRay>();
+        private readonly List<AngleRay> _startPointAngleRays = new List<AngleRay>();
+        private readonly List<AngleRay> _endPointAngleRays = new List<AngleRay>();
         
-        private List<AngleRayIntersectionResult> _intersectionResults = new List<AngleRayIntersectionResult>();
+        private readonly List<AngleRayIntersectionResult> _intersectionResults = new List<AngleRayIntersectionResult>();
         
-        private List<Vector2> _resultingDots = new List<Vector2>();
+        private readonly List<Vector2> _resultingDots = new List<Vector2>();
 
         private struct DotRectStruct
         {
@@ -38,7 +38,7 @@ namespace Pathfinding
         private struct AngleRayIntersectionResult
         {
             public Vector2 IntersectionPoint;
-            public float pathLength;
+            public float PathLength;
         }
 
         private DotRectStruct _startDot;
@@ -137,6 +137,7 @@ namespace Pathfinding
             FillAngleRayLists();
             if(AngleRayCrossCheck()) return;
             //Complex line with 2 turns checks
+            BuildBridge();
         }
 
         private bool SameRectangleCheck()
@@ -197,12 +198,12 @@ namespace Pathfinding
             _startPointAngleRays.Clear();
             _endPointAngleRays.Clear();
             
-            foreach (var angle in _startDotAngles)
+            foreach (var angle in _anglesInStartFieldOfView)
             {
                 _startPointAngleRays.Add(CastAngleRay(_startDot.DotPosition, angle));
             }
             
-            foreach (var angle in _endDotAngles)
+            foreach (var angle in _anglesInEndFieldOfView)
             {
                 _endPointAngleRays.Add(CastAngleRay(_endDot.DotPosition, angle));
             }
@@ -221,7 +222,7 @@ namespace Pathfinding
                         AngleRayIntersectionResult result = new AngleRayIntersectionResult()
                         {
                             IntersectionPoint = intersection,
-                            pathLength = (_startDot.DotPosition - intersection).magnitude +
+                            PathLength = (_startDot.DotPosition - intersection).magnitude +
                                          (_endDot.DotPosition - intersection).magnitude
                         };
                         _intersectionResults.Add(result);
@@ -234,11 +235,11 @@ namespace Pathfinding
                 AngleRayIntersectionResult minResult = new AngleRayIntersectionResult()
                 {
                     IntersectionPoint = Vector2.zero,
-                    pathLength = Single.MaxValue
+                    PathLength = Single.MaxValue
                 };
                 foreach (var intersectionResult in _intersectionResults)
                 {
-                    if (intersectionResult.pathLength < minResult.pathLength)
+                    if (intersectionResult.PathLength < minResult.PathLength)
                     {
                         minResult = intersectionResult;
                     }
@@ -329,53 +330,56 @@ namespace Pathfinding
         {
             Edge startMainEdge = new Edge();
             Edge endMainEdge = new Edge();
-            _startDotAngles.Clear();
-            _endDotAngles.Clear();
             
+            _anglesInStartFieldOfView.Clear();
+            _anglesInEndFieldOfView.Clear();
+
+            DefineMainEdges(ref startMainEdge, ref endMainEdge);
+            AddAnglesInFieldOfView(startMainEdge, endMainEdge);
+        }
+
+        private void DefineMainEdges(ref Edge startMainEdge, ref Edge endMainEdge)
+        {
             foreach (var edge in _edges)
             {
                 if (edge.First == _startDot.Rectangle || edge.Second == _startDot.Rectangle)
                 {
-                    _startDotAngles.Add(edge.Start);
-                    _startDotAngles.Add(edge.End);
+                    _anglesInStartFieldOfView.Add(edge.Start);
+                    _anglesInStartFieldOfView.Add(edge.End);
                     startMainEdge = edge;
                 }
 
                 if (edge.First == _endDot.Rectangle || edge.Second == _endDot.Rectangle)
                 {
-                    _endDotAngles.Add(edge.Start);
-                    _endDotAngles.Add(edge.End);
+                    _anglesInEndFieldOfView.Add(edge.Start);
+                    _anglesInEndFieldOfView.Add(edge.End);
                     endMainEdge = edge;
                 }
             }
-            
+        }
+
+        private void AddAnglesInFieldOfView(Edge startMainEdge, Edge endMainEdge)
+        {
             foreach (var edge in _edges)
             {
                 if (edge.First != _startDot.Rectangle && edge.Second != _startDot.Rectangle)
                 {
                     if (MathUtils.IntersectLineSegments2D(_startDot.DotPosition, edge.Start, startMainEdge.Start,
-                        startMainEdge.End, out Vector2 intersection1))
-                    {
-                        _startDotAngles.Add(edge.Start);
-                    }
+                        startMainEdge.End, out Vector2 intersection1)) _anglesInStartFieldOfView.Add(edge.Start);
 
                     if (MathUtils.IntersectLineSegments2D(_startDot.DotPosition, edge.End, startMainEdge.Start,
-                        startMainEdge.End, out Vector2 intersection2))
-                    {
-                        _startDotAngles.Add(edge.End);
-                    }
+                        startMainEdge.End, out Vector2 intersection2)) _anglesInStartFieldOfView.Add(edge.End);
                 }
 
                 if (edge.First != _endDot.Rectangle && edge.Second != _endDot.Rectangle)
                 {
                     if(MathUtils.IntersectLineSegments2D(_endDot.DotPosition, edge.Start, endMainEdge.Start,
-                        endMainEdge.End, out Vector2 intersection1)) _endDotAngles.Add(edge.Start);
+                        endMainEdge.End, out Vector2 intersection1)) _anglesInEndFieldOfView.Add(edge.Start);
                     if(MathUtils.IntersectLineSegments2D(_endDot.DotPosition, edge.End, endMainEdge.Start,
-                        endMainEdge.End, out Vector2 intersection2)) _endDotAngles.Add(edge.End);
+                        endMainEdge.End, out Vector2 intersection2)) _anglesInEndFieldOfView.Add(edge.End);
                 }
             }
         }
-
 
         private bool FindRectOfPoint(Vector2 point, out Rectangle outRectangle)
         {
@@ -389,6 +393,36 @@ namespace Pathfinding
             }
             outRectangle = new Rectangle();
             return false; 
+        }
+
+        private void BuildBridge()
+        {
+            float minResult = Single.MaxValue;
+            Vector2 nearsetAngle = Vector2.zero;
+            
+            _resultingDots.Add(_startDot.DotPosition);
+            
+            foreach (var angle in _anglesInStartFieldOfView)
+            {
+                if ((_endDot.DotPosition - angle).magnitude < minResult)
+                {
+                    nearsetAngle = angle;
+                }
+            }
+            
+            _resultingDots.Add(nearsetAngle);
+
+            minResult = Single.MaxValue;
+            foreach (var angle in _anglesInEndFieldOfView)
+            {
+                if ((_startDot.DotPosition - angle).magnitude < minResult)
+                {
+                    nearsetAngle = angle;
+                }
+            }
+            
+            _resultingDots.Add(nearsetAngle);
+            _resultingDots.Add(_endDot.DotPosition);
         }
     }
 }
